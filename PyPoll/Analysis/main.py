@@ -1,44 +1,31 @@
 #Import Modules
-
 import os
 import csv
 
 #Import CSV
+election_data = os.path.join("Resources", "election_data.csv")
 
-election_data = os.path.join("Resources", "election_data csv.csv")
+with open(election_data) as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvfile)
 
 #Declare Variables
-
-votes = 0
-winner_votes = 0
-total_candidates = 0
-greatest_votes = ["", 0]
-candidates = []
+total_votes = 0
+candidate = ""
 candidate_votes = {}
-county = []
-khan = []
-correy = []
-li = []
-otooley = []
+candidate_percentages ={}
+winner_votes = 0
+winner = ""
 
-with open(election_data, newline="") as csvfile:
-	csvreader = csv.reader(csvfile, delimiter=",")
+for row in csvreader:
+        total_votes = total_votes + 1
+        candidate = row[2]
+        if candidate in candidate_votes:
+            candidate_votes[candidate] = candidate_votes[candidate] + 1
+        else:
+            candidate_votes[candidate] = 1
 	
-# Skip header line
-	next(csvreader, None)
-
-#The total number of votes cast
-
-for row in cvsreader:
-        votes.append(int(row[0]))
-        county.append(row[1])
-        candidates.append(row[2])
-
-total_votes = (len(votes))
-print(total_votes)
-
 #candidates who recieved votes
-
 for candidate in candidates:
         if candidate == "Khan":
             khan.append(candidates)
@@ -59,7 +46,6 @@ print(li_votes)
 print(otooley_votes)
 
 #The percentage of votes each candidate won
-
 khan_percent = round(((khan_votes / total_votes) * 100), 2)
 correy_percent = round(((correy_votes / total_votes) * 100), 2)
 li_percent = round(((li_votes / total_votes) * 100), 2)
@@ -71,7 +57,6 @@ print(li_percent)
 print(otooley_percent)
 
 #The total number of votes each candidate won
-
 if khan_percent > max(correy_percent, li_percent, otooley_percent):
         winner = "Khan"
 elif correy_percent > max(khan_percent, li_percent, otooley_percent):
@@ -81,17 +66,15 @@ elif li_percent > max(correy_percent, khan_percent, otooley_percent):
 else:
         winner = "O'Tooley"
 
-#Print Results and winner
-
-output_file = os.path.join('election_data' + str(file_num) +'.txt')
-
-with open(output_file, 'w') as txtfile:
-    txtfile.writelines('Election Results \n------------------------- \nTotal Votes: ' + str(total_votes) + 
-      '\n-------------------------\n')
-    for entry in clean_data:
-        txtfile.writelines(entry[0] + ": " + str(entry[2]) +'%  (' + str(entry[1]) + ')\n')
-    txtfile.writelines('------------------------- \nWinner: ' + winner + '\n-------------------------')
-
-#prints file to terminal
-with open(output_file, 'r') as readfile:
-    print(readfile.read())
+#Print
+with open('output.txt', 'w+') as file:
+	file.write("Election Results\n")
+	file.write("----------------------------\n")
+	file.write("Total Votes: " + str(votes)+"\n")
+	file.write("----------------------------\n")
+	for candidate in d:
+		percent = round(d[candidate]/totalVotes * 100,2)
+		file.write(candidate +": "+ str(percent) +"%" +" ("+str(d[candidate]) +")\n")
+	file.write("----------------------------\n")
+	file.write("Election winner: " + winner+"\n")
+	file.write("----------------------------\n")
