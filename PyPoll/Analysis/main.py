@@ -5,7 +5,7 @@ import csv
 
 #Import CSV
 
-election_data = os.path.join("Resources", "election_data.csv")
+election_data = os.path.join("Resources", "election_data csv.csv")
 
 #Declare Variables
 
@@ -21,13 +21,15 @@ correy = []
 li = []
 otooley = []
 
-with open('election_data.csv', newline='') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=",")
-    csv_header = next(csvfile)
+with open(election_data, newline="") as csvfile:
+	csvreader = csv.reader(csvfile, delimiter=",")
+	
+# Skip header line
+	next(csvreader, None)
 
 #The total number of votes cast
 
-    for row in cvsreader:
+for row in cvsreader:
         votes.append(int(row[0]))
         county.append(row[1])
         candidates.append(row[2])
