@@ -16,6 +16,11 @@ candidate_votes = {}
 candidate_percentages ={}
 winner_votes = 0
 winner = ""
+Khan_votes = 0
+correy_votes =0 
+li_votes =0
+otooley_votes = 0
+
 
 for row in csvreader:
         total_votes = total_votes + 1
@@ -26,18 +31,18 @@ for row in csvreader:
             candidate_votes[candidate] = 1
 	
 #candidates who recieved votes
-for candidate in candidates:
+for candidate in candidate_votes:
         if candidate == "Khan":
-            khan.append(candidates)
+            khan.append(candidate)
             khan_votes = len(khan)
         elif candidate == "Correy":
-            correy.append(candidates)
+            correy.append(candidate)
             correy_votes = len(correy)
         elif candidate == "Li":
-            li.append(candidates)
+            li.append(candidate)
             li_votes = len(li)
         else:
-            otooley.append(candidates)
+            otooley.append(candidate)
             otooley_votes = len(otooley)
 
 print(khan_votes)
@@ -73,7 +78,7 @@ with open('output.txt', 'w+') as file:
 	file.write("Total Votes: " + str(votes)+"\n")
 	file.write("----------------------------\n")
 	for candidate in d:
-		percent = round(d[candidate]/totalVotes * 100,2)
+		percent = round(d[candidate]/total_votes * 100,2)
 		file.write(candidate +": "+ str(percent) +"%" +" ("+str(d[candidate]) +")\n")
 	file.write("----------------------------\n")
 	file.write("Election winner: " + winner+"\n")
